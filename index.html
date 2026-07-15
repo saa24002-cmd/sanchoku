@@ -1,1 +1,459 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>太陽と大地の恵み｜産地直送・採れたて夏野菜</title>
+    <style>
+        /* サイトの基本カラー設定 */
+        :root {
+            --bg-color: #f4f7f4;
+            --main-green: #2d5a27;
+            --accent-green: #4caf50;
+            --text-main: #333333;
+            --white: #ffffff;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "Hiragino Maru Gothic ProN", "Meiryo", sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* ヒーローセクション */
+        .hero {
+            background: linear-gradient(135deg, var(--main-green) 0%, var(--accent-green) 100%);
+            color: var(--white);
+            text-align: center;
+            padding: 60px 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            letter-spacing: 0.05em;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* メインコンテンツ枠 */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.8rem;
+            color: var(--main-green);
+            margin-bottom: 40px;
+            border-bottom: 3px solid var(--accent-green);
+            display: inline-block;
+            padding-bottom: 5px;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* 野菜グリッド */
+        .veg-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        /* 野菜カード */
+        .veg-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.2s ease-in-out;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .veg-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .veg-emoji {
+            font-size: 4rem;
+            text-align: center;
+            padding: 30px 0 10px;
+            background-color: #eef5ee;
+        }
+
+        .veg-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .veg-name {
+            font-size: 1.4rem;
+            color: var(--main-green);
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .veg-catchphrase {
+            color: #d94a38;
+            font-weight: bold;
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+
+        .veg-desc {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .buy-btn {
+            background-color: var(--accent-green);
+            color: var(--white);
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            width: 100%;
+        }
+
+        .buy-btn:hover {
+            background-color: var(--main-green);
+        }
+
+        /* コメントセクション */
+        .comments-section {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .comment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-green);
+        }
+
+        .submit-btn {
+            background-color: var(--main-green);
+            color: var(--white);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            align-self: flex-start;
+            transition: opacity 0.2s;
+        }
+
+        .submit-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* コメントリスト */
+        .comment-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .comment-item {
+            background-color: #fdfdfd;
+            border-left: 5px solid var(--accent-green);
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .comment-name {
+            font-weight: bold;
+            color: var(--main-green);
+        }
+
+        .comment-date {
+            color: #888;
+        }
+
+        .comment-text {
+            color: #444;
+            white-space: pre-wrap; /* 改行を反映 */
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 1.6rem; }
+            .comments-section { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ヘッダー -->
+    <header class="hero">
+        <h1>採れたて、もぎたて、大地の旨味。</h1>
+        <p>農家からあなたの食卓へ。鮮度抜群の夏野菜を直送します。</p>
+    </header>
+
+    <div class="container">
+        <!-- 商品一覧 -->
+        <h2 class="section-title">本日のおすすめ野菜</h2>
+        <div class="veg-grid">
+            
+            <!-- ピーマン -->
+            <div class="veg-card">
+                <div class="veg-emoji">🫑</div>
+                <div class="veg-content">
+                    <div class="veg-name">パリッと極厚 ピーマン</div>
+                    <div class="veg-catchphrase">「苦くない！ピーマン嫌いが驚く甘さ」</div>
+                    <div class="veg-desc">太陽をたっぷり浴びた肉厚ピーマン。水分が弾けるようなパリッとした食感と、噛むほどに広がる甘みが特徴です。BBQやチンジャオロースに最適！</div>
+                    <button class="buy-btn">カートに入れる</button>
+                </div>
+            </div>
+
+            <!-- ナス -->
+            <div class="veg-card">
+                <div class="veg-emoji">🍆</div>
+                <div class="veg-content">
+                    <div class="veg-name">とろける 濃紫ナス</div>
+                    <div class="veg-catchphrase">「油を吸って、まるで極上の大トロ」</div>
+                    <div class="veg-desc">ツヤツヤの美しい皮の奥には、火を通すとトロトロにとろける極上の果肉。焼きナスや麻婆茄子など、主役級の美味しさをお約束します。</div>
+                    <button class="buy-btn">カートに入れる</button>
+                </div>
+            </div>
+
+            <!-- 枝豆 -->
+            <div class="veg-card">
+                <div class="veg-emoji">🫛</div>
+                <div class="veg-content">
+                    <div class="veg-name">朝採り芳醇 枝豆</div>
+                    <div class="veg-catchphrase">「茹でた瞬間の香りが違う。ビール泥棒！」</div>
+                    <div class="veg-desc">夜明け前に収穫し、鮮度と甘みをギュッと閉じ込めました。一粒一粒が大きく、濃厚なコクと香りが口いっぱいに広がります。</div>
+                    <button class="buy-btn">カートに入れる</button>
+                </div>
+            </div>
+
+            <!-- ミニトマト -->
+            <div class="veg-card">
+                <div class="veg-emoji">🍅</div>
+                <div class="veg-content">
+                    <div class="veg-name">完熟もぎたて ミニトマト</div>
+                    <div class="veg-catchphrase">「まるでフルーツ！おやつ感覚で止まらない」</div>
+                    <div class="veg-desc">樹上でギリギリまで完熟させた、高糖度ミニトマト。皮が薄く、噛んだ瞬間に弾ける濃厚な甘みと適度な酸味のバランスが絶妙です。</div>
+                    <button class="buy-btn">カートに入れる</button>
+                </div>
+            </div>
+
+            <!-- バジル -->
+            <div class="veg-card">
+                <div class="veg-emoji">🌿</div>
+                <div class="veg-content">
+                    <div class="veg-name">摘みたて フレッシュバジル</div>
+                    <div class="veg-catchphrase">「一枚で、いつもの料理がプロの味に」</div>
+                    <div class="veg-desc">箱を開けた瞬間に広がる、鮮烈で爽やかなイタリアの香り。トマトやチーズとの相性は抜群。無農薬なので安心してお召し上がりいただけます。</div>
+                    <button class="buy-btn">カートに入れる</button>
+                </div>
+            </div>
+
+            <!-- ジャガイモ -->
+            <div class="veg-card">
+                <div class="veg-emoji">🥔</div>
+                <div class="veg-content">
+                    <div class="veg-name">ほくほく 黄金ジャガイモ</div>
+                    <div class="veg-catchphrase">「大地の旨味を丸かじり！ねっとり甘い」</div>
+                    <div class="veg-desc">皮が薄く、中身は黄色みを帯びたホクホクの新ジャガ。じゃがバターにすれば、口の中でねっとりと溶ける甘みがたまりません。</div>
+                    <button class="buy-btn">カートに入れる</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- コメント欄 -->
+        <div class="comments-section">
+            <h2 class="section-title" style="font-size: 1.5rem;">お客様の声・応援メッセージ</h2>
+            
+            <form id="comment-form" class="comment-form">
+                <div class="form-group">
+                    <input type="text" id="name-input" placeholder="お名前（ニックネーム可）" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="text-input" rows="4" placeholder="野菜を食べた感想や、農家へのメッセージをお聞かせください！" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">投稿する</button>
+            </form>
+
+            <div id="comment-list" class="comment-list">
+                <!-- コメントがここに表示されます -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase JS SDK v10 (CDN) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, orderBy, query, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        // ここに自分のconfigを貼る
+       const firebaseConfig = {
+       apiKey: "AIzaSyCnpLFfMyfMi2Y9qmH35qeHYYRur9U3ajE",
+       authDomain: "sanchoku-59c9d.firebaseapp.com",
+       projectId: "sanchoku-59c9d",
+       storageBucket: "sanchoku-59c9d.firebasestorage.app",
+       messagingSenderId: "205616982174",
+       appId: "1:205616982174:web:085ba1c1c3998a4d0cb38f"
+};
+
+
+        // Firebaseの初期化
+        let app, db;
+        try {
+            app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+        } catch (error) {
+            console.warn("Firebase config is not set properly. Please paste your config.", error);
+        }
+
+        const commentForm = document.getElementById('comment-form');
+        const nameInput = document.getElementById('name-input');
+        const textInput = document.getElementById('text-input');
+        const commentList = document.getElementById('comment-list');
+
+        // コメント一覧を取得して表示する関数
+        async function fetchAndDisplayComments() {
+            if (!db) return; // config未設定時はスキップ
+
+            try {
+                const q = query(collection(db, "comments"), orderBy("createdAt", "desc"));
+                const querySnapshot = await getDocs(q);
+                
+                // 表示をリセット
+                commentList.innerHTML = '';
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    
+                    // DOM要素を作成 (XSS対策のため textContent を使用)
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'comment-item';
+
+                    const headerDiv = document.createElement('div');
+                    headerDiv.className = 'comment-header';
+
+                    const nameSpan = document.createElement('span');
+                    nameSpan.className = 'comment-name';
+                    nameSpan.textContent = data.name || "名無しさん";
+
+                    const dateSpan = document.createElement('span');
+                    dateSpan.className = 'comment-date';
+                    
+                    // 日付のフォーマット処理
+                    if (data.createdAt) {
+                        const date = data.createdAt.toDate();
+                        dateSpan.textContent = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+                    } else {
+                        dateSpan.textContent = "送信中...";
+                    }
+
+                    headerDiv.appendChild(nameSpan);
+                    headerDiv.appendChild(dateSpan);
+
+                    const textP = document.createElement('p');
+                    textP.className = 'comment-text';
+                    textP.textContent = data.text || "";
+
+                    itemDiv.appendChild(headerDiv);
+                    itemDiv.appendChild(textP);
+
+                    // リストに追加
+                    commentList.appendChild(itemDiv);
+                });
+            } catch (error) {
+                console.error("コメントの取得に失敗しました: ", error);
+            }
+        }
+
+        // フォーム送信時の処理
+        commentForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            if (!db) {
+                alert("Firebaseの設定が完了していません。ソースコード内のfirebaseConfigを設定してください。");
+                return;
+            }
+
+            const nameValue = nameInput.value.trim();
+            const textValue = textInput.value.trim();
+
+            if (nameValue === "" || textValue === "") return;
+
+            try {
+                // コメントを保存
+                await addDoc(collection(db, "comments"), {
+                    name: nameValue,
+                    text: textValue,
+                    createdAt: new Date() // Firestore側でTimestampとして保存される
+                });
+
+                // フォームをクリア
+                nameInput.value = '';
+                textInput.value = '';
+
+                // 一覧を再取得して更新
+                fetchAndDisplayComments();
+            } catch (error) {
+                console.error("コメントの投稿に失敗しました: ", error);
+                alert("コメントの投稿に失敗しました。");
+            }
+        });
+
+        // 初回読み込み時にコメントを表示
+        fetchAndDisplayComments();
+    </script>
+</body>
+</html>
